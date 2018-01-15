@@ -25,10 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        paddle.cpp
+        paddle.cpp \
+        usercontrol.cpp \
+        paddlecontrol.cpp \
+        computercontrol.cpp
 
 HEADERS += \
-        paddle.h
+        paddle.h \
+        paddlecontrol.h \
+        usercontrol.h \
+        computercontrol.h
 
 # FORMS += \
         # mainwindow.ui

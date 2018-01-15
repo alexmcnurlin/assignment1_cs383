@@ -2,14 +2,16 @@
 #include <QApplication>
 #include <QKeyEvent>
 #include "paddle.h"
+#include "paddlecontrol.h"
 /* #define WINDOW_MAX 270 */
 #define SIZEX 10
 #define SIZEY 100
 
 
-Paddle::Paddle() { 
-    this->x = 0;
-    this->y = 0;
+Paddle::Paddle(int x, int y, PaddleControl *pc) { 
+    this->pc = pc;
+    this->x = x;
+    this->y = y;
     this->speed = 1;
 }
 
@@ -28,10 +30,7 @@ void Paddle::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 void Paddle::advance(int step) {
     if (!step)
         return;
-    if (!(qrand() % 100)) {
-        speed = -speed;
-    }
-    this->y+=this->speed;
+    this->y+=this->speed*this->pc->movePaddle();
     this->setPos(this->x, this->y);
     update();
 }

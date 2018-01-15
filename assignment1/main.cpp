@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "paddle.h"
+#include "usercontrol.h"
+#include "computercontrol.h"
 #include <QApplication>
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -17,12 +19,18 @@ int main(int argc, char **argv)
     scene.setSceneRect(-300, -300, 600, 600);
     scene.setItemIndexMethod(QGraphicsScene::NoIndex);
 
-    Paddle *p1 = new Paddle;
-    scene.addItem(p1);
-
     QGraphicsView view(&scene);
     view.setRenderHint(QPainter::Antialiasing);
     view.setWindowTitle("CS383 Assignment 1");
+
+    UserControl *uc = new UserControl(&view);
+    Paddle *p1 = new Paddle(100, 0, uc);
+    scene.addItem(p1);
+
+    ComputerControl *cc = new ComputerControl();
+    Paddle *p2 = new Paddle(-100, 0, cc);
+    scene.addItem(p2);
+
     view.show();
 
     QTimer timer;
