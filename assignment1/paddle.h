@@ -6,7 +6,6 @@ class Paddle : public QGraphicsItem {
     public:
         Paddle();
         QRectF boundingRect() const;
-        /* QPainterPath shape() const; */
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
 
