@@ -1,4 +1,4 @@
 #include "paddlecontrol.h"
 
-int PaddleControl::movePaddle() {};
+int PaddleControl::movePaddle(QPointF currentLocation) {};
 PaddleControl::PaddleControl() {};

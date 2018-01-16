@@ -24,17 +24,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        ball.cpp \
+        computercontrol.cpp \
         main.cpp \
         paddle.cpp \
-        usercontrol.cpp \
         paddlecontrol.cpp \
-        computercontrol.cpp
+        usercontrol.cpp \
+        wall.cpp
 
 HEADERS += \
+        ball.h \
+        computercontrol.h \
         paddle.h \
         paddlecontrol.h \
         usercontrol.h \
-        computercontrol.h
+        wall.h
 
 # FORMS += \
         # mainwindow.ui

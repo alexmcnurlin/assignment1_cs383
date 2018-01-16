@@ -8,7 +8,7 @@
 class UserControl : public PaddleControl, QWidget {
     public:
         UserControl(QWidget *parent);
-        int movePaddle();
+        int movePaddle(QPointF currentLocation);
 
     private:
         int direction;
@@ -16,6 +16,7 @@ class UserControl : public PaddleControl, QWidget {
     protected:
         void keyPressEvent(QKeyEvent *e);
         void keyReleaseEvent(QKeyEvent *e);
+        void advance(int step);
 };
 
 #endif

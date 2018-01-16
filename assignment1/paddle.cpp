@@ -3,7 +3,7 @@
 #include <QKeyEvent>
 #include "paddle.h"
 #include "paddlecontrol.h"
-/* #define WINDOW_MAX 270 */
+#include "ball.h"
 #define SIZEX 10
 #define SIZEY 100
 
@@ -30,7 +30,7 @@ void Paddle::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 void Paddle::advance(int step) {
     if (!step)
         return;
-    this->y+=this->speed*this->pc->movePaddle();
+    this->y+=this->speed*this->pc->movePaddle(this->scenePos());
     this->setPos(this->x, this->y);
     update();
 }

@@ -2,6 +2,8 @@
 #define PADDLE_H
 #include <QGraphicsItem>
 #include "paddlecontrol.h"
+#include "ball.h"
+
 
 class Paddle : public QGraphicsItem {
     public:
@@ -19,4 +21,6 @@ class Paddle : public QGraphicsItem {
     protected:
         void advance(int step);
 };
+
+
 #endif
