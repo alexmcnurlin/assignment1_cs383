@@ -1,4 +1,5 @@
 #include <QPainter>
+#include <typeinfo>
 #include <QGraphicsScene>
 #include <QApplication>
 #include "ball.h"
@@ -38,16 +39,7 @@ void Ball::advance(int step) {
     foreach (QGraphicsItem *item, nearItemsX) {
         if (item == this)
             continue;
-        this->reflectX(item);
-        break;
-    }
-
-    QList<QGraphicsItem *> nearItemsY = scene()->items(QRectF(this->x-SIZEX/2, this->y-SIZEY/2,
-                                                       1, SIZEY));
-    foreach (QGraphicsItem *item, nearItemsY) {
-        if (item == this)
-            continue;
-        this->reflectY(item);
+        this->reflect(item);
         break;
     }
 
@@ -59,14 +51,18 @@ void Ball::advance(int step) {
 }
 
 
-void Ball::reflectX(QGraphicsItem *p) {
-    QPointF pCoord = p->scenePos();
-    float distance = pCoord.y() - this->y;
-    float k = 0.03;
-    this->yVel = this->yVel - (k*distance);
-    this->xVel = -this->xVel;
-}
-
-void Ball::reflectY(QGraphicsItem *p) {
-    this->yVel = -this->yVel;
+void Ball::reflect(QGraphicsItem *p) {
+    // I know it is bad design to include a typecheck here. I would rather
+    // define a 'reflect' method on each item (Paddle, Wall, ect), but I'm given 
+    // a list QGraphicsItems so the compiler won't let me do that, since 
+    // QGraphicsItem does not have a 'reflect' method
+    if (typeid(*p) == typeid(Paddle)) {
+        QPointF pCoord = p->scenePos();
+        float distance = pCoord.y() - this->y;
+        float k = 0.03;
+        this->yVel = this->yVel - (k*distance);
+        this->xVel = -this->xVel;
+    } else {
+        this->yVel = -this->yVel;
+    }
 }

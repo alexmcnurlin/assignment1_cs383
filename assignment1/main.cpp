@@ -10,13 +10,16 @@
 #include <QtGui>
 #include <math.h>
 
+#define XDIM 600
+#define YDIM 600
+
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
     qsrand(QTime::currentTime().msec());
 
     QGraphicsScene scene;
-    scene.setSceneRect(-300, -300, 600, 600);
+    scene.setSceneRect(-XDIM/2, -YDIM/2, XDIM, YDIM);
     scene.setItemIndexMethod(QGraphicsScene::NoIndex);
 
     QGraphicsView view(&scene);
@@ -24,18 +27,18 @@ int main(int argc, char **argv)
     view.setWindowTitle("CS383 Assignment 1");
 
     UserControl uc(&view);
-    Paddle p1(100, 0, &uc);
+    Paddle p1(XDIM/2-5, 0, &uc);
     scene.addItem(&p1);
 
     Ball b(0, 0);
     scene.addItem(&b);
 
     ComputerControl cc(&b);
-    Paddle p2(-100, 0, &cc);
+    Paddle p2(-XDIM/2+5, 0, &cc);
     scene.addItem(&p2);
 
-    Wall w1(0, 100, 200, 10);
-    Wall w2(0, -100, 200, 10);
+    Wall w1(0, YDIM/2-5, XDIM, 10);
+    Wall w2(0, -YDIM/2+5, XDIM, 10);
     scene.addItem(&w1);
     scene.addItem(&w2);
 

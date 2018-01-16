@@ -12,7 +12,9 @@ int ComputerControl::movePaddle(QPointF currentLocation) {
     if (this->time->elapsed() > 30) {
         qreal myY = currentLocation.y();
         qreal followY = followObject->scenePos().y();
-        if (followY > myY) {
+        if (abs(followY - myY) < 10) {
+            return 0;
+        } else if (followY > myY) {
             this->direction = 1;
         } else {
             this->direction = -1;

@@ -12,8 +12,7 @@ class Ball : public QGraphicsItem {
         QRectF boundingRect() const;
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
-        void reflectX(QGraphicsItem *b);
-        void reflectY(QGraphicsItem *b);
+        void reflect(QGraphicsItem *b);
 
     private:
         qreal x;
