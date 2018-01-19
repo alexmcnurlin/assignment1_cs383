@@ -3,20 +3,17 @@
 #include <QGraphicsScene>
 #include <QApplication>
 #include "ball.h"
-#include "collisionobject.h"
 #define SIZEX 10
 #define SIZEY 10
 
 
 Ball::Ball(qreal x, qreal y) { 
-    this->x = x;
-    this->y = y;
-    this->xVel = 1;
-    this->yVel = 0;
+    this->reset_ball();
+    /* this->x = x; */
+    /* this->y = y; */
+    /* this->xVel = .1; */
+    /* this->yVel = (qrand() % 100 - 500)/1000; */
 }
-
-
-Ball::~Ball() {};
 
 
 QRectF Ball::boundingRect() const {
@@ -30,24 +27,30 @@ void Ball::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 }
 
 
+void Ball::reset_ball() {
+    x = 0;
+    y = 0;
+    xVel = 1. * (double)(qrand() % 2 - .5);
+    yVel = ((qrand() % 100) - 50)/1500.0;
+    setPos(x, y);
+}
+
+
 void Ball::advance(int step) {
     if (!step)
         return;
 
-    QList<QGraphicsItem *> nearItemsX = scene()->items(QRectF(this->x-SIZEX/2, this->y-SIZEY/2,
-                                                       SIZEX, 1));
-    foreach (QGraphicsItem *item, nearItemsX) {
-        if (item == this)
-            continue;
-        this->reflect(item);
+    QList<QGraphicsItem *> nearItems = collidingItems();
+    foreach (QGraphicsItem *item, nearItems) {
+        reflect(item);
         break;
     }
 
-    this->x+=this->xVel;
-    this->y+=this->yVel;
-    this->setPos(this->x, this->y);
+    x+=xVel;
+    y+=yVel;
+    setPos(x, y);
     update();
-    this->setFocus(); //It's a hack, I know :/
+    /* setFocus(); //It's a hack, I know :/ */
 }
 
 
@@ -58,11 +61,11 @@ void Ball::reflect(QGraphicsItem *p) {
     // QGraphicsItem does not have a 'reflect' method
     if (typeid(*p) == typeid(Paddle)) {
         QPointF pCoord = p->scenePos();
-        float distance = pCoord.y() - this->y;
-        float k = 0.03;
-        this->yVel = this->yVel - (k*distance);
-        this->xVel = -this->xVel;
+        float distance = pCoord.y() - y;
+        float k = 0.015;
+        yVel = yVel - (k*distance);
+        xVel = -xVel*1.1;
     } else {
-        this->yVel = -this->yVel;
+        yVel = -yVel;
     }
 }

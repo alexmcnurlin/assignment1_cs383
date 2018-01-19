@@ -9,17 +9,17 @@ ComputerControl::ComputerControl(QGraphicsItem *b) {
 };
 
 int ComputerControl::movePaddle(QPointF currentLocation) {
-    if (this->time->elapsed() > 30) {
+    if (time->elapsed() > 100) {
         qreal myY = currentLocation.y();
         qreal followY = followObject->scenePos().y();
-        if (abs(followY - myY) < 10) {
+        if (abs(followY - myY) < 5) {
             return 0;
         } else if (followY > myY) {
-            this->direction = 1;
+            direction = 1;
         } else {
-            this->direction = -1;
+            direction = -1;
         }
-        this->time->restart();
+        time->restart();
     }
     return direction;
 }

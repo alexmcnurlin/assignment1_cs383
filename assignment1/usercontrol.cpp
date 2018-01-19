@@ -1,23 +1,27 @@
 #include "usercontrol.h"
 #include <QTime>
+#include <QDebug>
 #include <QKeyEvent>
 
 UserControl::UserControl(QWidget *parent) : QWidget(parent) {
-    this->setFocus();
+    direction = 0;
+    setFocus();
 };
 
+
 int UserControl::movePaddle(QPointF currentLocation) {
-    return this->direction;
+    qDebug() << direction;
+    return direction;
 }
 
 
 void UserControl::keyPressEvent(QKeyEvent *e) {
     switch (e->key()) {
         case Qt::Key_Down:
-            this->direction = 1;
+            direction = 1;
             break;
         case Qt::Key_Up:
-            this->direction = -1;
+            direction = -1;
             break;
     }
 }
@@ -25,7 +29,7 @@ void UserControl::keyPressEvent(QKeyEvent *e) {
 
 void UserControl::keyReleaseEvent(QKeyEvent *e) {
     if (e->key() == Qt::Key_Down || e->key() == Qt::Key_Up) {
-        this->direction = 0;
+        direction = 0;
     }
 }
 
@@ -33,5 +37,5 @@ void UserControl::keyReleaseEvent(QKeyEvent *e) {
 void UserControl::advance(int step) {
     // I had a problem where clicking in the window removed keyboard focus
     // This is a dirty way to fix that
-    this->setFocus();
+    setFocus();
 }

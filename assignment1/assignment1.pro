@@ -26,6 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         ball.cpp \
         computercontrol.cpp \
+        goal.cpp \
         main.cpp \
         paddle.cpp \
         paddlecontrol.cpp \
@@ -35,10 +36,8 @@ SOURCES += \
 HEADERS += \
         ball.h \
         computercontrol.h \
+        goal.h \
         paddle.h \
         paddlecontrol.h \
         usercontrol.h \
         wall.h
-
-# FORMS += \
-        # mainwindow.ui

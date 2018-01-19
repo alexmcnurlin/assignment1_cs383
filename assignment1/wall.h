@@ -2,9 +2,9 @@
 #define WALL_H
 #include <QRectF>
 #include <QPainter>
-#include <QGraphicsItem>
+#include <QGraphicsObject>
 
-class Wall : public QGraphicsItem {
+class Wall : public QGraphicsObject {
     public:
         Wall(int x, int y, int w, int h);
         QRectF boundingRect() const;

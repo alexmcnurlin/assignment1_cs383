@@ -1,26 +1,28 @@
-#ifndef PADDLE_H
-#define PADDLE_H
+#ifndef GOAL_H
+#define GOAL_H
 #include <QGraphicsObject>
-#include "paddlecontrol.h"
+#include <QRectF>
 #include "ball.h"
 
+class Goal : public QGraphicsObject {
 
-class Paddle : public QGraphicsObject {
     public:
-        Paddle(int x, int y, PaddleControl *pc);
+        Goal(int x, int y, int w, int h, Ball *b);
+        ~Goal() {};
         QRectF boundingRect() const;
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
 
     private:
-        float x;
-        float y;
-        float speed;
-        PaddleControl* pc;
+        int x;
+        int y;
+        int w;
+        int h;
+        Ball *ball;
+        int score;
 
     protected:
         void advance(int step);
 };
-
 
 #endif

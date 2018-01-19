@@ -1,9 +1,14 @@
 #include <QPainter>
 #include <QApplication>
 #include <QKeyEvent>
+#include <QGraphicsScene>
+#include <QDebug>
+#include <QString>
+#include <typeinfo>
 #include "paddle.h"
 #include "paddlecontrol.h"
 #include "ball.h"
+#include "wall.h"
 #define SIZEX 10
 #define SIZEY 100
 
@@ -12,7 +17,7 @@ Paddle::Paddle(int x, int y, PaddleControl *pc) {
     this->pc = pc;
     this->x = x;
     this->y = y;
-    this->speed = 1;
+    this->speed = 1.5;
 }
 
 
@@ -30,7 +35,19 @@ void Paddle::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 void Paddle::advance(int step) {
     if (!step)
         return;
-    this->y+=this->speed*this->pc->movePaddle(this->scenePos());
-    this->setPos(this->x, this->y);
+    QRectF nextLocation = boundingRect();
+    float dy = speed*pc->movePaddle(scenePos());
+    nextLocation.translate(0, dy);
+
+    QList<QGraphicsItem *> nearItems = scene()->items(mapToScene(nextLocation));
+    foreach (QGraphicsItem *item, nearItems) {
+        if (typeid(*item) == typeid(Wall)) {
+            // This means the paddle is hitting a wall, so don't change the paddle's position
+            return;
+        }
+        break;
+    }
+    y+=dy;
+    setPos(x, y);
     update();
 }

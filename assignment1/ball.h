@@ -1,24 +1,27 @@
 #ifndef BALL_H
 #define BALL_H
-#include <QGraphicsItem>
+#include <QGraphicsObject>
 #include "paddle.h"
-/* #include "collisionobject.h" */
 
 
-class Ball : public QGraphicsItem {
+class Ball : public QGraphicsObject {
+
     public:
         Ball(qreal x, qreal y);
-        ~Ball();
+        ~Ball() {};
         QRectF boundingRect() const;
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                    QWidget *widget);
         void reflect(QGraphicsItem *b);
+        void reset_ball();
 
     private:
         qreal x;
         qreal y;
         float xVel;
         float yVel;
+        float maxVel;
+
         
     protected:
         void advance(int step);
