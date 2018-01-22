@@ -37,8 +37,16 @@ int main(int argc, char **argv)
     ComputerControl cc(&b);
     Paddle p2(-XDIM/2+5, 0, &cc);
 
-    Wall w1(0, -YDIM/2+5, XDIM, 10);
+    Wall w1(0, -YDIM/2+5, XDIM, 50);
     Wall w2(0, YDIM/2-5, XDIM, 10);
+
+    QGraphicsTextItem io;
+    io.setPos(-XDIM/2+10,-YDIM/2);
+    io.setPlainText("Use Up and Down arrow keys to move the paddle");
+    io.setDefaultTextColor(Qt::white);
+    QFont ioFont;
+    ioFont.setPixelSize(20);
+    io.setFont(ioFont);
 
     scene.addItem(&g1);
     scene.addItem(&g2);
@@ -47,6 +55,7 @@ int main(int argc, char **argv)
     scene.addItem(&b);
     scene.addItem(&w1);
     scene.addItem(&w2);
+    scene.addItem(&io);
 
     view.show();
 

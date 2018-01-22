@@ -1,6 +1,5 @@
 #include "usercontrol.h"
 #include <QTime>
-#include <QDebug>
 #include <QKeyEvent>
 
 UserControl::UserControl(QWidget *parent) : QWidget(parent) {
@@ -10,7 +9,6 @@ UserControl::UserControl(QWidget *parent) : QWidget(parent) {
 
 
 int UserControl::movePaddle(QPointF currentLocation) {
-    qDebug() << direction;
     return direction;
 }
 
@@ -34,8 +32,4 @@ void UserControl::keyReleaseEvent(QKeyEvent *e) {
 }
 
 
-void UserControl::advance(int step) {
-    // I had a problem where clicking in the window removed keyboard focus
-    // This is a dirty way to fix that
-    setFocus();
-}
+void UserControl::advance(int step) {}

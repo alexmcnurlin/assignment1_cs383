@@ -9,10 +9,6 @@
 
 Ball::Ball(qreal x, qreal y) { 
     this->reset_ball();
-    /* this->x = x; */
-    /* this->y = y; */
-    /* this->xVel = .1; */
-    /* this->yVel = (qrand() % 100 - 500)/1000; */
 }
 
 
@@ -22,7 +18,7 @@ QRectF Ball::boundingRect() const {
 
 
 void Ball::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) {
-    painter->setBrush(Qt::blue);
+    painter->setBrush(Qt::black);
     painter->drawRect(QRectF(-SIZEX/2., -SIZEY/2., SIZEX, SIZEY));
 }
 
@@ -50,15 +46,11 @@ void Ball::advance(int step) {
     y+=yVel;
     setPos(x, y);
     update();
-    /* setFocus(); //It's a hack, I know :/ */
 }
 
 
 void Ball::reflect(QGraphicsItem *p) {
-    // I know it is bad design to include a typecheck here. I would rather
-    // define a 'reflect' method on each item (Paddle, Wall, ect), but I'm given 
-    // a list QGraphicsItems so the compiler won't let me do that, since 
-    // QGraphicsItem does not have a 'reflect' method
+    // I know it is bad design to include a typecheck here, however I couldn't think of a better way to do this with the way I detect collisions.
     if (typeid(*p) == typeid(Paddle)) {
         QPointF pCoord = p->scenePos();
         float distance = pCoord.y() - y;

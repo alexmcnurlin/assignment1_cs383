@@ -2,7 +2,6 @@
 #include <QApplication>
 #include <QKeyEvent>
 #include <QGraphicsScene>
-#include <QDebug>
 #include <QString>
 #include <typeinfo>
 #include "paddle.h"
